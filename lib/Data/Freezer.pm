@@ -46,7 +46,7 @@ use Pixie ;
 use Data::Freezer::FreezingBag ;
 
 
-our $VERSION = '0.01' ;
+our $VERSION = '0.02' ;
 
 no strict ;
 my $debug = 0 ;
@@ -105,9 +105,10 @@ sub pixie{
     
     $self->{'pixie'} = $pixie ;
    
-    print "Binding namespace hash\n" if $debug ;;
-    $pixie->bind_name("_hNameSpaces_" =>  bless( {} , "NameSpaces" ) );
-		    
+    print "Binding namespace hash\n" if $debug ;
+    if ( ! defined $pixie->get_object_named("_hNameSpaces_") ){
+	$pixie->bind_name("_hNameSpaces_" =>  bless( {} , "NameSpaces" ) );
+    }
 }
 
 
